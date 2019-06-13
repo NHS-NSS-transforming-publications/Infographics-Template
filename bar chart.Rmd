@@ -1,0 +1,88 @@
+---
+title: "At a Glance"
+output: html_document
+---
+
+
+<!-- This section produces all the objects needed -->
+
+```{r, echo = FALSE, results='hide', message=FALSE, warning=FALSE}
+library(tidyverse)
+
+#get data for plot
+data <- read.csv("//stats/LIST_analytics/West Hub/02 - Scaled Up Work/GP cluster profiles/At a Glance/Data Extract for RMarkdown.csv")
+
+data <- subset(data, GEOGRAPHY_NAME == "Cluster1")
+list_size <- paste("Total List Size: <b>", subset(data, DOMAIN == "DEMOGRAPHICS" & FY == 2018 & INDICATOR == "All patients")$DENOMINATOR, "</b>")
+
+#clean data
+barplot_dat <- data %>% filter(DOMAIN == "DEMOGRAPHICS",
+                               FY == max(data$FY), INDICATOR %in% c("All Female", "All Male", "All patients"))
+
+barplot_dat <- data.frame(Gender = c("Female", "Male"), Percent = barplot_dat$DENOMINATOR[1:2]/rep(barplot_dat[barplot_dat$INDICATOR == "All patients",]$DENOMINATOR,2), cat = c(1,1))
+
+barplot <- ggplot(data = barplot_dat, 
+                  aes(y = Percent, x = cat, fill = 
+                        factor(Gender, levels = c("Male", "Female")))) + 
+  geom_bar(stat = "identity") + coord_flip() + theme_classic() + 
+  theme(axis.title = element_blank(), axis.line = element_blank(), 
+        axis.text = element_blank(), axis.ticks = element_blank(), 
+        legend.position = "bottom", legend.title = element_blank()) + 
+  geom_text(aes(x = cat, label = paste0(round(100*Percent,1), "%"), y = c(0.25,0.75)))
+
+#hypertension donut plot
+hyp_dat <- data %>% filter(FY == max(FY), INDICATOR == "HYPERTENSION") %>% 
+  select(NUMERATOR, DENOMINATOR)
+hyp_dat <- data.frame(count = c(hyp_dat$NUMERATOR, hyp_dat$DENOMINATOR - hyp_dat$NUMERATOR),
+                      labels = c("Hyp", "NoHyp"))
+hyp_text <- paste0("Hypertension <br><b>", round(100*hyp_dat$count[1]/sum(hyp_dat$count), 2), "%</b>")
+hyp_dat$fraction = hyp_dat$count / sum(hyp_dat$count)
+hyp_dat = hyp_dat[order(hyp_dat$fraction), ]
+hyp_dat$ymax = cumsum(hyp_dat$fraction)
+hyp_dat$ymin = c(0, head(hyp_dat$ymax, n=-1))
+
+hyp_plot <- ggplot(hyp_dat, aes(fill=labels, ymax=ymax, ymin=ymin, xmax=4, xmin=3)) +
+     geom_rect(colour="grey30", fill = c("grey","lightblue")) +
+     guides(fill = F) +
+     coord_polar(theta="y") +
+     xlim(c(0, 4)) +
+     theme_classic() +
+     theme(panel.grid=element_blank()) +
+     theme(axis.text=element_blank()) +
+     theme(axis.ticks=element_blank()) +
+     theme(axis.line = element_blank()) 
+
+```
+
+
+<!-- This section displays the plots and text -->
+
+
+<!-- Barplot -->
+
+<div style="float:left"> 
+<h1>GP Cluster List Size</h1>
+<br>
+<p align = "left">`r list_size`</p>
+
+```{r, echo = FALSE, fig.height= 2, fig.width=5}
+barplot
+```
+</div>
+
+<!-- Disease Registers -->
+
+<div style="float:right"> 
+<h1>Disease Registers</h1>
+<br>
+<div style="display:inline-block; vertical-align:top">
+```{r, echo = FALSE, fig.height= 2, fig.width=2}
+hyp_plot
+```
+</div>
+<div style = "display:inline-block">
+<br><br><br>
+`r hyp_text`
+</div>
+</div>
+
