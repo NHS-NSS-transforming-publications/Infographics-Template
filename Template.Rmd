@@ -1,0 +1,166 @@
+---
+output:
+  html_document:
+    fig_width: 3
+  pdf_document: default
+  word_document: default
+---
+  
+  
+<!-- This is the starting R code chunk that forms the pie charts -->
+```{r, echo=FALSE, results = 'hide', message = FALSE, warnings = FALSE}
+#This area creates the plots and sets up other objects to be inserted into the RMarkdown code later on.
+
+#---#
+#The overall layout and objects sizes are determined by these variables.
+image_width <- 200
+fontSize <- 24
+bar_plot_width <- 400
+donut_plot_width <- 300
+donut_plot_height <- 300
+text_description_width <- 90
+column_1_pixels_from_left <- 0
+column_2_pixels_from_left <- 300
+column_3_pixels_from_left <- 400
+column_4_pixels_from_left <- 700
+
+row_1_pixels_from_top <- 200
+row_2_pixels_from_top <- 500
+row_3_pixels_from_top <- 800
+
+sample_number_for_text <- '1,350'
+#---#
+
+
+#----------#This section creates the plots that will later be referenced in the Markdown/HTML code.
+df <- data.frame(
+  group = c("Yes", "No"),
+  value = c(25, 75)
+)
+
+suppressWarnings(  library(ggplot2)   ) #Load library ggplot and suppress any warnings that pop up.
+#I had difficulty suppressing them purely with setting warnings = False
+#at the start of the RMarkdown chunk.
+
+
+# Sample Barplot
+bp <- ggplot(df, aes(x="", y=value, fill=group)) +
+  geom_bar(width = .35, stat = "identity", fill = c('red','orange'))
+
+bp <- bp + labs(x="", y="")  #This removes the 'x' and 'value' labels for the x and y axes respectively.
+
+pie <- bp + #geom_text(aes(label = '14%'), vjust = "inward", hjust = "inward") +
+  coord_polar("y", start=0*pi/(180)) +  #This changes the barplot into a donut plot.
+  annotate("text", x = 0, y = 0, label = "25%", size = 10, col = 'orange')
+
+
+pie <- pie + theme(panel.background = ggplot2::element_blank(),
+                   axis.text.x = ggplot2::element_blank(),  #This will get rid of the x-axis labels.
+                   axis.ticks=element_blank())  #This will get rid of the single x-axis tick.
+#----------#
+
+
+
+```
+
+
+<!-- This is the start of the Markdown/HTML section of the file. -->
+
+<!-- This is the start of Row #1. -->
+<div style="position: absolute; top: `r row_1_pixels_from_top`px;">
+
+  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
+                top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
+```{r echo=FALSE}
+    pie 
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+  <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
+               top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
+```{r echo=FALSE}
+    pie
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+</div>
+
+
+<!-- This is the start of Row #2. -->
+<div style="position: absolute; top: `r row_2_pixels_from_top`px;">
+
+  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
+                top: 100px; width: `r donut_plot_width`px; height: 300px;">
+                <!--# out.height="200px", -->
+```{r echo=FALSE} 
+    pie
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+  <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
+  top: 100px; width: `r donut_plot_width`px;">
+```{r echo=FALSE}
+    pie
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+</div>
+
+
+
+<!-- This is the start of Row #2. -->
+<div style="position: absolute; top: `r row_3_pixels_from_top`px;">
+
+  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
+                top: 100px; width: `r donut_plot_width`px;">
+```{r  echo=FALSE}
+    pie 
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+  <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
+  top: 100px; width: `r donut_plot_width`px;">
+```{r echo=FALSE}
+    pie
+```       
+  </span>
+  
+  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 275px; 
+                width: `r text_description_width`px; vertical-align: middle; ">  
+      There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
+  </span>
+  
+</div>
+
+
+
+
+
+
+
+
