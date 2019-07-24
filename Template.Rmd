@@ -128,7 +128,7 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 
 
 
-<!-- This is the start of Row #2. -->
+<!-- This is the start of Row #3. -->
 <div style="position: absolute; top: `r row_3_pixels_from_top`px;">
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
