@@ -24,9 +24,9 @@ column_2_pixels_from_left <- 300
 column_3_pixels_from_left <- 400
 column_4_pixels_from_left <- 700
 
-row_1_pixels_from_top <- 200
-row_2_pixels_from_top <- 500
-row_3_pixels_from_top <- 800
+row_1_pixels_from_top <- 150
+row_2_pixels_from_top <- 400
+row_3_pixels_from_top <- 650
 
 sample_number_for_text <- '1,350'
 quarter <- 'Oct - Dec 2018'
@@ -78,6 +78,16 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
   <h5>`r quarter`</h5><br>
 </div>
 
+
+<!-- Add column headings for columns 1 and 3. -->
+<div style="font-size: 18px;">
+  <span style = "position: absolute; left: `r column_1_pixels_from_left + 90`px;">
+    <b>GP Cluster List Size</b>
+  </span>
+  <span style = "position: absolute; left: `r column_3_pixels_from_left + 150`px;">
+    <b>Disease Registers</b>
+  </span>
+</div>
 
 
 <!-- This is the start of Row #1. -->
