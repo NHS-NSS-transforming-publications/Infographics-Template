@@ -29,6 +29,8 @@ row_2_pixels_from_top <- 500
 row_3_pixels_from_top <- 800
 
 sample_number_for_text <- '1,350'
+quarter <- 'Oct - Dec 2018'
+GPcluster <- 'West Renfrewshire'
 #---#
 
 
@@ -67,6 +69,17 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 
 <!-- This is the start of the Markdown/HTML section of the file. -->
 
+<!-- This section builds the document using HTML -->
+
+
+<!-- This section creates the Blue Title Box at the top of the page -->
+<div style = "background-color: rgb(79, 129, 189); color: white; text-align: center; padding: 10px; border: 2px solid rgb(55, 96, 146); font-weight: bold;"><br>
+  <h1> `r GPcluster` GP Cluster <br>At a Glance </h1>
+  <h5>`r quarter`</h5><br>
+</div>
+
+
+
 <!-- This is the start of Row #1. -->
 <div style="position: absolute; top: `r row_1_pixels_from_top`px;">
 
@@ -97,12 +110,12 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 </div>
 
 
+
 <!-- This is the start of Row #2. -->
 <div style="position: absolute; top: `r row_2_pixels_from_top`px;">
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
                 top: 100px; width: `r donut_plot_width`px; height: 300px;">
-                <!--# out.height="200px", -->
 ```{r echo=FALSE, fig.height = 3 } 
     pie
 ```       
