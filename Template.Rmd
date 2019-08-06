@@ -20,7 +20,7 @@ donut_plot_width <- 300
 donut_plot_height <- 300
 text_description_width <- 90
 column_1_pixels_from_left <- 0
-column_2_pixels_from_left <- 300
+column_2_pixels_from_left <- 240
 column_3_pixels_from_left <- 400
 column_4_pixels_from_left <- 700
 
@@ -40,9 +40,10 @@ df <- data.frame(
   value = c(25, 75)
 )
 
-suppressWarnings(  library(ggplot2)   ) #Load library ggplot and suppress any warnings that pop up.
-#I had difficulty suppressing them purely with setting warnings = False
-#at the start of the RMarkdown chunk.
+suppressWarnings(  library(ggplot2)   ) #Load library ggplot for plotting functions.
+suppressWarnings(  library(magick)   ) #Load library magick for reading in png and other types of images with function  image_read().
+#suppressWarnings() suppresses any warnings that pop up. I had difficulty suppressing them purely with setting warnings = False at the start of the RMarkdown chunk.
+
 
 
 # Sample Barplot
@@ -60,6 +61,22 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_blank(),  #This will get rid of the x-axis labels.
                    axis.ticks=element_blank()
                    )  #This will get rid of the single x-axis tick.
+
+
+#blue_pill_icon <- image_write('blue_pill_icon.PNG')
+
+blue_pill_icon <- image_read('blue_pill_icon.PNG') 
+# blue_pill_icon <- image_convert(bp_icon, 'svg')
+# image_write(bp_icon, path = "bp_icon.svg", format = "svg", density = 20)
+# image_write(bp_icon, path = "bp_icon.png", format = "png")
+# image_write(bp_icon_svg, path = "bp_icon.svg", format = "svg")
+# image_write
+# image_info(bp_icon)
+# image_info(bp_icon_svg)
+# 
+# image_display(bp_icon_svg)
+# image_browse(bp_icon)
+# plot(bp_icon)
 #----------#
 
 
@@ -95,9 +112,8 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
                 top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie 
-```       
+    <img src="blue_pill_icon.PNG" alt="Image of a Blue Pill"  height = 70%
+                                style="position: absolute; top: 40px;"> 
   </span>
   
   <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px; 
@@ -126,8 +142,8 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
                 top: 100px; width: `r donut_plot_width`px; height: 300px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie
+```{r echo=FALSE, out.width="70%", out.extra = 'style = "position: absolute; top: 30px;"'}
+    blue_pill_icon
 ```       
   </span>
   
@@ -157,8 +173,8 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
                 top: 100px; width: `r donut_plot_width`px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie 
+```{r echo=FALSE, out.width="70%", out.extra = 'style = "position: absolute; top: 30px;"'} 
+    blue_pill_icon
 ```       
   </span>
   
