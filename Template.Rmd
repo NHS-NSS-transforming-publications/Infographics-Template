@@ -1,13 +1,12 @@
 ---
 output:
   html_document:
-    fig_width: 3
   pdf_document: default
   word_document: default
 ---
   
   
-<!-- This is the starting R code chunk that forms the pie charts -->
+<!-- This is the starting R code chunk that forms the donut_plot plots -->
 ```{r, echo=FALSE, results = 'hide', message = FALSE, warnings = FALSE}
 #This area creates the plots and sets up other objects to be inserted into the RMarkdown code later on.
 
@@ -40,24 +39,24 @@ df <- data.frame(
   value = c(25, 75)
 )
 
-suppressWarnings(  library(ggplot2)   ) #Load library ggplot for plotting functions.
-suppressWarnings(  library(magick)   ) #Load library magick for reading in png and other types of images with function  image_read().
+suppressWarnings( library(ggplot2) ) #Load library ggplot for plotting functions.
+suppressWarnings( library(magick)  ) #Load library magick for reading in png and other types of images with function  image_read().
 #suppressWarnings() suppresses any warnings that pop up. I had difficulty suppressing them purely with setting warnings = False at the start of the RMarkdown chunk.
 
 
 
 # Sample Barplot
-bp <- ggplot(df, aes(x="", y=value, fill=group)) +
+bar_plot <- ggplot(df, aes(x="", y=value, fill=group)) +
   geom_bar(width = .35, stat = "identity", fill = c('red','orange'))
 
-bp <- bp + labs(x="", y="")  #This removes the 'x' and 'value' labels for the x and y axes respectively.
+bar_plot <- bar_plot + labs(x="", y="")  #This removes the 'x' and 'value' labels for the x and y axes respectively.
 
-pie <- bp + #geom_text(aes(label = '14%'), vjust = "inward", hjust = "inward") +
+donut_plot <- bar_plot + #geom_text(aes(label = '14%'), vjust = "inward", hjust = "inward") +
   coord_polar("y", start=0*pi/(180)) +  #This changes the barplot into a donut plot.
   annotate("text", x = 0, y = 0, label = "25%", size = 10, col = 'orange')
 
 
-pie <- pie + theme(panel.background = ggplot2::element_blank(),
+donut_plot <- donut_plot + theme(panel.background = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_blank(),  #This will get rid of the x-axis labels.
                    axis.ticks=element_blank()
                    )  #This will get rid of the single x-axis tick.
@@ -123,8 +122,8 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
   
   <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
                top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie
+```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
+    bar_plot
 ```       
   </span>
   
@@ -154,8 +153,8 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
   
   <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
   top: 100px; width: `r donut_plot_width`px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie
+```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
+    donut_plot
 ```       
   </span>
   
@@ -185,8 +184,8 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
   
   <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
   top: 100px; width: `r donut_plot_width`px;">
-```{r echo=FALSE, fig.height = 3 } 
-    pie
+```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
+    donut_plot
 ```       
   </span>
   
