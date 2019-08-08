@@ -39,8 +39,8 @@ df <- data.frame(
   value = c(25, 75)
 )
 
-suppressWarnings( library(ggplot2) ) #Load library ggplot for plotting functions.
-suppressWarnings( library(magick)  ) #Load library magick for reading in png and other types of images with function  image_read().
+suppressWarnings( library(ggplot2) ) #Load library 'ggplot' for plotting functions.
+suppressWarnings( library(magick)  ) #Load library 'magick' for reading in png and other types of images with function  image_read().
 #suppressWarnings() suppresses any warnings that pop up. I had difficulty suppressing them purely with setting warnings = False at the start of the RMarkdown chunk.
 
 
