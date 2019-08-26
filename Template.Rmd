@@ -5,8 +5,7 @@ output:
   word_document: default
 ---
   
-  
-<!-- This is the starting R code chunk that forms the donut_plot plots -->
+<!-- Section 2: This is the starting R code chunk that forms the donut_plot plots ---- -->
 ```{r, echo=FALSE, results = 'hide', message = FALSE, warnings = FALSE}
 #This area creates the plots and sets up other objects to be inserted into the RMarkdown code later on.
 
@@ -83,7 +82,7 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
 ```
 
 
-<!-- This is the start of the Markdown/HTML section of the file. -->
+<!-- Section 3: Markdown/HTML section of the file. ---- -->
 
 <!-- This section builds the document using HTML -->
 
@@ -96,11 +95,11 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
 
 
 <!-- Add column headings for columns 1 and 3. -->
-<div style="font-size: 18px;">
-  <span style = "position: absolute; left: `r column_1_pixels_from_left + 90`px;">
+<div style="position: absolute; font-size: 18px;" >
+  <span style = "position: absolute; left: `r column_1_pixels_from_left + 90`px; top: 15px; width: 240px;">
     <b>GP Cluster List Size</b>
   </span>
-  <span style = "position: absolute; left: `r column_3_pixels_from_left + 150`px;">
+  <span style = "position: absolute; left: `r column_3_pixels_from_left + 150`px; top: 15px; width: 240px;">
     <b>Disease Registers</b>
   </span>
 </div>
