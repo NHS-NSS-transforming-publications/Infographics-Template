@@ -5,54 +5,65 @@ output:
   word_document: default
 ---
   
-<!-- Section 2: This is the starting R code chunk that forms the donut_plot plots ---- -->
-```{r, echo=FALSE, results = 'hide', message = FALSE, warnings = FALSE}
+<!-- This is the large starting R code chunk that forms the plots and imports images. -->
+```{r, echo=FALSE, results = 'hide', message = FALSE, warnings = FALSE }
 #This area creates the plots and sets up other objects to be inserted into the RMarkdown code later on.
 
-#---#
-#The overall layout and objects sizes are determined by these variables.
+#----#----#
+#### Section 1: Set the overall layout and object sizes by changing these variables. ####
+
+#Set image and font sizes.
 image_width <- 200
-fontSize <- 24
-bar_plot_width <- 400
-donut_plot_width <- 300
+fontSize    <- 24
+bar_plot_width    <- 400
+donut_plot_width  <- 300
 donut_plot_height <- 300
 text_description_width <- 90
+
+#Set how far left or right the columns are.
 column_1_pixels_from_left <- 0
 column_2_pixels_from_left <- 240
 column_3_pixels_from_left <- 400
 column_4_pixels_from_left <- 700
 
+#Set how far up or down the rows are.
 row_1_pixels_from_top <- 150
 row_2_pixels_from_top <- 400
 row_3_pixels_from_top <- 650
 
+
+#Create sample text to be referenced and shown later in the document.
 sample_number_for_text <- '1,350'
 quarter <- 'Oct - Dec 2018'
 GPcluster <- 'West Renfrewshire'
-#---#
+#----#----#
 
 
-#----------#This section creates the plots that will later be referenced in the Markdown/HTML code.
-df <- data.frame(
-  group = c("Yes", "No"),
-  value = c(25, 75)
-)
+#------------------#
+#### Section 2: Create the plots that will later be referenced in the Markdown/HTML code. ####
 
+#Create a simple data frame of sample data.
+df <- data.frame(  
+        group = c("Yes", "No"),
+        value = c(25, 75)
+      )
+
+#Load these two packages.
 suppressWarnings( library(ggplot2) ) #Load library 'ggplot' for plotting functions.
-suppressWarnings( library(magick)  ) #Load library 'magick' for reading in png and other types of images with function  image_read().
+suppressWarnings( library(magick)  ) #Load library 'magick' for reading in png and other types of images with function image_read().
 #suppressWarnings() suppresses any warnings that pop up. I had difficulty suppressing them purely with setting warnings = False at the start of the RMarkdown chunk.
 
 
 
-# Sample Barplot
-bar_plot <- ggplot(df, aes(x="", y=value, fill=group)) +
-  geom_bar(width = .35, stat = "identity", fill = c('red','orange'))
+#### Create plots and import image. ####
+bar_plot   <- ggplot(df, aes(x="", y=value, fill=group)) +
+                geom_bar(width = .35, stat = "identity", fill = c('red','orange'))
 
-bar_plot <- bar_plot + labs(x="", y="")  #This removes the 'x' and 'value' labels for the x and y axes respectively.
+bar_plot   <- bar_plot + labs(x="", y="")  #This removes the 'x' and 'value' labels for the x and y axes respectively.
 
-donut_plot <- bar_plot + #geom_text(aes(label = '14%'), vjust = "inward", hjust = "inward") +
-  coord_polar("y", start=0*pi/(180)) +  #This changes the barplot into a donut plot.
-  annotate("text", x = 0, y = 0, label = "25%", size = 10, col = 'orange')
+donut_plot <- bar_plot + 
+                  coord_polar("y", start = 0*pi/(180)) +  #This line changes the barplot into a donut plot.
+                  annotate("text", x = 0, y = 0, label = "25%", size = 10, col = 'orange')
 
 
 donut_plot <- donut_plot + theme(panel.background = ggplot2::element_blank(),
@@ -60,31 +71,15 @@ donut_plot <- donut_plot + theme(panel.background = ggplot2::element_blank(),
                    axis.ticks=element_blank()
                    )  #This will get rid of the single x-axis tick.
 
-
-#blue_pill_icon <- image_write('blue_pill_icon.PNG')
-
+#This imports an image file from the same folder where .Rmd file is at.
 blue_pill_icon <- image_read('blue_pill_icon.PNG') 
-# blue_pill_icon <- image_convert(bp_icon, 'svg')
-# image_write(bp_icon, path = "bp_icon.svg", format = "svg", density = 20)
-# image_write(bp_icon, path = "bp_icon.png", format = "png")
-# image_write(bp_icon_svg, path = "bp_icon.svg", format = "svg")
-# image_write
-# image_info(bp_icon)
-# image_info(bp_icon_svg)
-# 
-# image_display(bp_icon_svg)
-# image_browse(bp_icon)
-# plot(bp_icon)
-#----------#
 
-
-
+#------------------#
 ```
 
 
 <!-- Section 3: Markdown/HTML section of the file. ---- -->
-
-<!-- This section builds the document using HTML -->
+<!-- This section builds the document using HTML with small R code chunks added in. -->
 
 
 <!-- This section creates the Blue Title Box at the top of the page -->
@@ -108,95 +103,95 @@ blue_pill_icon <- image_read('blue_pill_icon.PNG')
 <!-- This is the start of Row #1. -->
 <div style="position: absolute; top: `r row_1_pixels_from_top`px;">
 
-  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
-                top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
+  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px;      
+                top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;"> <!-- Column 1 -->
     <img src="blue_pill_icon.PNG" alt="Image of a Blue Pill"  height = 70%
                                 style="position: absolute; top: 40px;"> 
   </span>
   
-  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px;       
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 2 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
-  <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
-               top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;">
+  <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px;    
+               top: 100px; width: `r donut_plot_width`px;">                                   <!-- Column 3 -->
 ```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
     bar_plot
 ```       
   </span>
   
-  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 165px;       
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 4 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
 </div>
-
+<!-- End of Row #1. -->
 
 
 <!-- This is the start of Row #2. -->
 <div style="position: absolute; top: `r row_2_pixels_from_top`px;">
 
-  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
-                top: 100px; width: `r donut_plot_width`px; height: 300px;">
+  <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px;   
+                top: 100px; width: `r donut_plot_width`px; height: `r donut_plot_height`px;"> <!-- Column 1 -->
 ```{r echo=FALSE, out.width="70%", out.extra = 'style = "position: absolute; top: 30px;"'}
     blue_pill_icon
 ```       
   </span>
   
-  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+  <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px;    
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 2 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
   <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
-  top: 100px; width: `r donut_plot_width`px;">
+  top: 100px; width: `r donut_plot_width`px;">                                                <!-- Column 3 -->
 ```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
     donut_plot
 ```       
   </span>
   
-  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+  <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 165px;    
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 4 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
 </div>
-
+<!-- End of Row #2. -->
 
 
 <!-- This is the start of Row #3. -->
 <div style="position: absolute; top: `r row_3_pixels_from_top`px;">
 
   <span style="padding: 10px; position: absolute; left: `r column_1_pixels_from_left`px; 
-                top: 100px; width: `r donut_plot_width`px;">
+                top: 100px; width: `r donut_plot_width`px; `r donut_plot_height`px;">         <!-- Column 1 -->
 ```{r echo=FALSE, out.width="70%", out.extra = 'style = "position: absolute; top: 30px;"'} 
     blue_pill_icon
 ```       
   </span>
   
   <span style = "position: absolute; left: `r column_2_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 2 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
   <span style = "padding: 10px; position: absolute; left: `r column_3_pixels_from_left`px; 
-  top: 100px; width: `r donut_plot_width`px;">
+  top: 100px; width: `r donut_plot_width`px;">                                                <!-- Column 3 -->
 ```{r echo=FALSE, fig.width = 3, fig.height = 3 } 
     donut_plot
 ```       
   </span>
   
   <span style = "position: absolute; left: `r column_4_pixels_from_left`px; top: 165px; 
-                width: `r text_description_width`px; vertical-align: middle; ">  
+                width: `r text_description_width`px; vertical-align: middle; ">               <!-- Column 4 -->
       There were a sample of <b> `r sample_number_for_text` </b> GP Out of Hours in 2018/19.
   </span>
   
 </div>
+<!-- End of Row #3. -->
 
-
-
+<!-- End of File -->
 
 
 
