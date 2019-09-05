@@ -1,5 +1,5 @@
 # LIST_Infographics
-A template that LIST can use to help develop their own Infographics
+A template that LIST or any other teams can use to help develop their own Infographics
 
 # How to Produce Infographics in HTML using RMarkdown
 
