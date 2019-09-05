@@ -7,8 +7,8 @@
 # Version of R that the script was most recently run on: R 3.5.2
 # Description of content: this script is to show an alternative way to create
 # the infographics template using ggpubr package. 
-# The advantage of doing it is no HTML code are needed. 
-# Also no need to set parameters for spaces and paddings.
+# The advantage of doing this is that no HTML code is needed. 
+# Also there is no need to set parameters for spaces and paddings.
 # Approximate run time: 10 seconds.
 ##########################################################
 
@@ -41,6 +41,9 @@ pie <- pie + theme(panel.background = ggplot2::element_blank(),
                    axis.text.x = ggplot2::element_blank(),  
                    axis.ticks=element_blank()
 )
+
+
+# pie1
 
 # Add the annotation next to the plot.
 pie1 <- annotate_figure(pie, 
