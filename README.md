@@ -1,5 +1,5 @@
 # Infographics Template
-A template any team can use to help develop their own automated Infographics using R
+A template anyone can use to help develop their own automated Infographics using R
 
 # How to Produce Infographics in HTML using RMarkdown
 
